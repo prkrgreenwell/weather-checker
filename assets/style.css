@@ -75,7 +75,7 @@ button:hover {
 }
 
 #current-temp {
-  width: 175px;
+  width: 50%;
   border: 2px solid black;
   margin-top: 20px;
   margin-right: 50px;
@@ -99,12 +99,12 @@ h3 {
 .forecast-days {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-around;
+  justify-content: center;
   margin: 0;
 }
 
 .forecast-day {
-  width: 275px;
+  width: 99%;
   height: 250px;
   background-color: gray;
   color: white;
@@ -135,13 +135,13 @@ h3 {
   }
 
   .forecast-day {
-    width: 225px;
+    width: 32%;
   }
 }
 
 @media only screen and (min-width: 1023px) {
   .forecast-day {
-    width: 136px;
+    width: 19%;
   }
 
   #current-temp {
