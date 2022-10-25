@@ -1,19 +1,30 @@
-var currentWeather = document.getElementById("current");
-var searchButton = document.getElementById("search");
+function weatherSearch() {
+  var searchInput = $("#city-search").val(); //define search box
 
-function getApi() {
-  var requestUrl =
-    "https://api.openweathermap.org/data/2.5/forecast?lat=40.2969&lon=-111.6946&appid=bdb9d6d229602dc33220e9128891fa95";
+  var cityConvert = `http://api.openweathermap.org/geo/1.0/direct?q=${searchInput}&limit=5&appid=bdb9d6d229602dc33220e9128891fa95`;
 
-  fetch(requestUrl)
-    .then(function (response) {
+  fetch(cityConvert)
+    .then((response) => {
       return response.json();
     })
-    .then(function (data) {
-      for (var i = 0; i < 5; i++) {
-        console.log(data.list[i].main.temp);
-      }
+    .then((data) => {
+      var lon = data[0].lon;
+      var lat = data[0].lat;
+
+      var getApi = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=bdb9d6d229602dc33220e9128891fa95&units=imperial`;
+
+      fetch(getApi)
+        .then((response) => {
+          return response.json();
+        })
+        .then((data) => {
+          console.log(data);
+        });
     });
 }
 
-searchButton.addEventListener("click", getApi);
+$("#search").on("click", function (event) {
+  event.preventDefault();
+
+  weatherSearch();
+});
