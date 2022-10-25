@@ -79,6 +79,13 @@ button:hover {
   border: 2px solid black;
   margin-top: 20px;
   margin-right: 50px;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.current-temp {
+  font-size: 2.3rem;
+  font-weight: bold;
 }
 
 #details {
@@ -115,6 +122,12 @@ h3 {
   font-size: 1.2rem;
   justify-content: space-between;
   margin: 2px;
+}
+
+span:first-child {
+  font-weight: bold;
+  text-align: center;
+  font-size: 1.4rem;
 }
 
 .forecast-day span {
