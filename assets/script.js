@@ -1,7 +1,24 @@
+/** @format */
+
 function getDateFromUnix(unix) {
   var date = new Date(unix * 1000);
   return date.toLocaleDateString();
 }
+
+var searchedCities = [
+  $("#first"),
+  $("#second"),
+  $("#third"),
+  $("#fourth"),
+  $("#fifth"),
+  $("#sixth"),
+  $("#seventh"),
+  $("#eighth"),
+  $("#ninth"),
+  $("#tenth"),
+  $("#eleventh"),
+  $("#twelfth"),
+];
 
 var dates = [
   $("#date-1"),
@@ -85,4 +102,8 @@ $("#search").on("click", function (event) {
   event.preventDefault();
 
   weatherSearch();
+
+  var savedCities = {
+    cities: [],
+  };
 });

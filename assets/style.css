@@ -83,11 +83,6 @@ button:hover {
   flex-wrap: wrap;
 }
 
-.current-temp {
-  font-size: 2.3rem;
-  font-weight: bold;
-}
-
 #details {
   width: 100%;
   display: flex;
@@ -128,6 +123,11 @@ span:first-child {
   font-weight: bold;
   text-align: center;
   font-size: 1.4rem;
+}
+
+.current-temp {
+  font-size: 2.3rem;
+  font-weight: bold;
 }
 
 .forecast-day span {
