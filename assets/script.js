@@ -1,24 +1,11 @@
 /** @format */
 
+console.log(localStorage);
+
 function getDateFromUnix(unix) {
   var date = new Date(unix * 1000);
   return date.toLocaleDateString();
 }
-
-var searchedCities = [
-  $("#first"),
-  $("#second"),
-  $("#third"),
-  $("#fourth"),
-  $("#fifth"),
-  $("#sixth"),
-  $("#seventh"),
-  $("#eighth"),
-  $("#ninth"),
-  $("#tenth"),
-  $("#eleventh"),
-  $("#twelfth"),
-];
 
 var dates = [
   $("#date-1"),
@@ -49,10 +36,33 @@ var humidities = [
   $("#humidity-5"),
 ];
 
-function weatherSearch() {
-  var searchInput = $("#city-search").val();
+var cities = [];
+var searchCity = $("#city-search").val();
+var saveSearch = function () {
+  localStorage.setItem("cities", JSON.stringify(cities));
+};
 
-  var cityConvert = `http://api.openweathermap.org/geo/1.0/direct?q=${searchInput}&limit=5&appid=bdb9d6d229602dc33220e9128891fa95`;
+function loadCities() {
+  var citiesToLoad = localStorage.getItem("cities");
+
+  if (!citiesToLoad) {
+    return false;
+  } else {
+    citiesToLoad = JSON.parse(citiesToLoad);
+
+    for (var i = 0; i < citiesToLoad.length; i++) {
+      createButton(citiesToLoad[i]);
+    }
+  }
+}
+
+loadCities();
+
+function weatherSearch(city) {
+  var cityConvert =
+    "http://api.openweathermap.org/geo/1.0/direct?q=" +
+    city +
+    "&limit=5&appid=bdb9d6d229602dc33220e9128891fa95";
 
   fetch(cityConvert)
     .then((response) => {
@@ -98,12 +108,34 @@ function weatherSearch() {
     });
 }
 
+function createButton(city) {
+  var button = document.createElement("button");
+
+  button.setAttribute("class", "past-city");
+  button.setAttribute("data-city", city);
+  button.textContent = city;
+  $("#past-search").append(button);
+}
+
 $("#search").on("click", function (event) {
   event.preventDefault();
+  var searchInput = $("#city-search").val();
 
-  weatherSearch();
+  weatherSearch(searchInput);
+  createButton(searchInput);
 
-  var savedCities = {
-    cities: [],
-  };
+  cities.push(searchInput);
+  saveSearch();
 });
+
+var pastSearch = document.querySelector("#past-search");
+
+var pastSearchHandler = function (event) {
+  console.log("click");
+  var city = event.target.getAttribute("data-city");
+
+  if (city) {
+    weatherSearch(city);
+  }
+};
+pastSearch.addEventListener("click", pastSearchHandler);
